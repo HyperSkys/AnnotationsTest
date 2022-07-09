@@ -1,16 +1,14 @@
 package dev.hyperskys.annotationstest;
 
-import dev.hyperskys.annotationstest.annotations.SetValue;
-import dev.hyperskys.annotationstest.annotations.TellMeThisValue;
+import dev.hyperskys.annotationstest.annotations.ClassValueYes;
+import dev.hyperskys.annotationstest.annotations.MethodValue;
 import dev.hyperskys.annotationstest.handler.RandomClass;
 import org.reflections.Reflections;
 
 import java.io.DataInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.net.URL;
-import java.security.Signature;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,23 +36,21 @@ public class AnnotationsTest {
 
     public void handleAnnotations() throws Exception {
         for (Class<?> clazz : getClasses(RandomClass.class.getClassLoader(), "dev/hyperskys/annotationstest/handler")) {
-            for (Method method : clazz.getDeclaredMethods()) {
-                for (Parameter parameter : method.getParameters()) {
-                    if (parameter.isAnnotationPresent(TellMeThisValue.class)) {
-                        System.out.println();
-                    }
-                }
+            if (clazz.isAnnotationPresent(ClassValueYes.class)) {
+                System.out.println("class vlaue is yessed");
+            }
 
-                if(method.isAnnotationPresent(SetValue.class)) {
-                    System.out.println(method.getAnnotation(SetValue.class).newValue());
+            for (Method method : clazz.getDeclaredMethods()) {
+                if(method.isAnnotationPresent(MethodValue.class)) {
+                    System.out.println(method.getAnnotation(MethodValue.class).newValue());
                 }
             }
         }
     }
 
     public static void main(String[] args) throws Exception {
+        RandomClass.reason("test");
         AnnotationsTest annotationsTest = new AnnotationsTest();
         annotationsTest.handleAnnotations();
-        RandomClass.reason("test");
     }
 }

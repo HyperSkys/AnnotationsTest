@@ -1,13 +1,12 @@
 package dev.hyperskys.annotationstest.handler;
 
-import dev.hyperskys.annotationstest.annotations.SetValue;
-import dev.hyperskys.annotationstest.annotations.TellMeThisValue;
-import dev.hyperskys.annotationstest.annotations.ThisHasAFuckingAnnotation;
+import dev.hyperskys.annotationstest.annotations.ClassValueYes;
+import dev.hyperskys.annotationstest.annotations.MethodValue;
 
-@ThisHasAFuckingAnnotation
+@ClassValueYes
 public class RandomClass {
-    @SetValue(newValue = "test111")
-    public static void reason(@TellMeThisValue String test) {
+    @MethodValue(newValue = "test111")
+    public static void reason(String test) {
         System.out.println(test);
     }
 }
